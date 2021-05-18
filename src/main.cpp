@@ -15,8 +15,12 @@ void setup()
   pinMode(LED_BUILTIN, OUTPUT);
 }
 
-#define FORWARD 166
-#define BACKWARD 150
+// #define FORWARD 166 * 2
+// #define BACKWARD 150 * 2
+#define FORWARD 600
+#define BACKWARD FORWARD
+#define START 4
+#define END START + 3
 
 void loop()
 {
@@ -24,33 +28,35 @@ void loop()
   digitalWrite(OUT1, HIGH);
   digitalWrite(OUT2, LOW);
 
-  for (int i = 0; i <= 10; i++)
+  for (int i = START; i <= END; i++)
   {
     analogWrite(PWM, i * 25);
     delay(FORWARD);
   }
   delay(50);
-  for (int i = 10; i >= 0; i--)
+  for (int i = END; i >= START; i--)
   {
     analogWrite(PWM, i * 25);
     delay(FORWARD);
   }
 
   digitalWrite(OUT1, LOW);
+  delay(7000);
   digitalWrite(OUT2, HIGH);
-  delay(5000);
-  for (int i = 0; i <= 10; i++)
+
+  for (int i = START; i <= END; i++)
   {
     analogWrite(PWM, i * 25);
     delay(BACKWARD);
   }
   delay(50);
-  for (int i = 10; i >= 0; i--)
+  for (int i = END; i >= START; i--)
   {
     analogWrite(PWM, i * 25);
     delay(BACKWARD);
   }
 
+  digitalWrite(OUT2, LOW);
   digitalWrite(LED_BUILTIN, LOW);
-  delay(5000);
+  delay(10000);
 }
